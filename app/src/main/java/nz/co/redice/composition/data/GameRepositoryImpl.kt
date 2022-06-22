@@ -1,7 +1,7 @@
 package nz.co.redice.composition.data
 
 import nz.co.redice.composition.domain.entity.GameSettings
-import nz.co.redice.composition.domain.entity.Level
+import nz.co.redice.composition.domain.entity.GameLevel
 import nz.co.redice.composition.domain.entity.Question
 import nz.co.redice.composition.domain.repo.GameRepository
 import kotlin.math.max
@@ -27,9 +27,9 @@ object GameRepositoryImpl : GameRepository {
         return Question(sum, visibleNum, options.toList())
     }
 
-    override fun getGameSettings(level: Level): GameSettings {
-        return when (level) {
-            Level.TEST -> {
+    override fun getGameSettings(gameLevel: GameLevel): GameSettings {
+        return when (gameLevel) {
+            GameLevel.TEST -> {
                 GameSettings(
                     10,
                     3,
@@ -37,7 +37,7 @@ object GameRepositoryImpl : GameRepository {
                     8
                 )
             }
-            Level.EASY -> {
+            GameLevel.EASY -> {
                 GameSettings(
                     10,
                     10,
@@ -45,7 +45,7 @@ object GameRepositoryImpl : GameRepository {
                     60
                 )
             }
-            Level.NORMAL -> {
+            GameLevel.NORMAL -> {
                 GameSettings(
                     20,
                     20,
@@ -53,7 +53,7 @@ object GameRepositoryImpl : GameRepository {
                     40
                 )
             }
-            Level.HARD -> {
+            GameLevel.HARD -> {
                 GameSettings(
                     30,
                     30,

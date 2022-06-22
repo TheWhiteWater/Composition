@@ -5,10 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import nz.co.redice.composition.R
 import nz.co.redice.composition.databinding.FragmentChooseLevelBinding
-import nz.co.redice.composition.domain.entity.Level
-import java.util.zip.Inflater
+import nz.co.redice.composition.domain.entity.GameLevel
 
 
 class ChooseLevelFragment : Fragment() {
@@ -28,40 +28,28 @@ class ChooseLevelFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         with(binding) {
             buttonLevelTest.setOnClickListener {
-                launchGameFragment(Level.TEST)
+                launchGameFragment(GameLevel.TEST)
             }
             buttonLevelEasy.setOnClickListener {
-                launchGameFragment(Level.EASY)
+                launchGameFragment(GameLevel.EASY)
             }
             buttonLevelNormal.setOnClickListener {
-                launchGameFragment(Level.NORMAL)
+                launchGameFragment(GameLevel.NORMAL)
             }
             buttonLevelHard.setOnClickListener {
-                launchGameFragment(Level.HARD)
+                launchGameFragment(GameLevel.HARD)
             }
         }
     }
 
-    private fun launchGameFragment(level: Level) {
-        requireActivity().supportFragmentManager.beginTransaction()
-            .replace(R.id.main_container, GameFragment.newInstance(level))
-            .addToBackStack(GameFragment.FRAGMENT_NAME)
-            .commit()
+    private fun launchGameFragment(gameLevel: GameLevel) {
+        findNavController().navigate(ChooseLevelFragmentDirections.actionChooseLevelFragmentToGameFragment(gameLevel))
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
 
-
-    companion object {
-        const val FRAGMENT_NAME = "name"
-
-        fun newInstance(): ChooseLevelFragment {
-            return ChooseLevelFragment()
-        }
-    }
 
 }
